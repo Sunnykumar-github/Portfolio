@@ -1,0 +1,444 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    overscroll-behavior: none;
+  }
+
+  main> :first-child {
+    margin-top: 0 !important;
+  }
+
+  main> :last-child {
+    margin-bottom: 0 !important;
+  }
+
+  /* Smoother global transitions */
+  * {
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Section backgrounds — subtle layered effect for non-home sections */
+  #about,
+  #skills,
+  #certifications,
+  #whyhireme,
+  #testimonials,
+  #contact {
+    background: radial-gradient(ellipse 80% 40% at 50% 0%, rgba(190, 198, 224, 0.04) 0%, transparent 70%);
+  }
+
+  #experience,
+  #education,
+  #projects,
+  #leadership {
+    background: radial-gradient(ellipse 80% 40% at 50% 100%, rgba(79, 219, 200, 0.04) 0%, transparent 70%);
+  }
+
+  /* Font smoothing */
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Responsive headline scaling */
+  h1.text-display-lg {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    line-height: 1.1;
+  }
+
+  h2.text-display-lg {
+    font-size: clamp(2rem, 5vw, 4rem);
+    line-height: 1.15;
+  }
+
+  p.text-body-lg {
+    font-size: clamp(0.95rem, 1.5vw, 1.125rem);
+    line-height: 1.7;
+  }
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+@layer utilities {
+
+  /* Smoother AOS-like reveal */
+  [data-aos] {
+    transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+
+  /* Glassmorphism utility */
+  .glass {
+    background: rgba(18, 33, 49, 0.6);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.065);
+  }
+
+  /* Glow effect */
+  .glow-primary {
+    box-shadow: 0 0 24px rgba(190, 198, 224, 0.18), 0 0 6px rgba(190, 198, 224, 0.10);
+  }
+
+  .glow-tertiary {
+    box-shadow: 0 0 24px rgba(79, 219, 200, 0.18), 0 0 6px rgba(79, 219, 200, 0.10);
+  }
+}
+
+/* ===== HERO ENTRANCE ANIMATIONS (fire on page load, not scroll) ===== */
+@keyframes hero-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(36px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-hero {
+  animation: hero-fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-hero-delay-1 {
+  animation-delay: 0.1s;
+}
+
+.animate-hero-delay-2 {
+  animation-delay: 0.3s;
+}
+
+.animate-hero-delay-3 {
+  animation-delay: 0.55s;
+}
+
+.animate-hero-delay-4 {
+  animation-delay: 0.8s;
+}
+
+.animate-hero-delay-5 {
+  animation-delay: 1.05s;
+}
+
+/* AOS custom easing override */
+[data-aos="fade-up"] {
+  transform: translateY(28px);
+}
+
+/* ===== SHOOTING STARS ===== */
+.shooting-star-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+  /* Above background, below text */
+}
+
+.shooting-star {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 2px;
+  background: linear-gradient(-45deg, rgba(200, 160, 255, 1), rgba(0, 0, 255, 0));
+  border-radius: 999px;
+  filter: drop-shadow(0 0 6px rgba(200, 160, 255, 1));
+  animation: tail 3s ease-in-out infinite, shooting 3s ease-in-out infinite;
+}
+
+.shooting-star::before {
+  content: '';
+  position: absolute;
+  top: calc(50% - 1px);
+  right: 0;
+  height: 2px;
+  background: linear-gradient(-45deg, rgba(0, 0, 255, 0), rgba(200, 160, 255, 1), rgba(0, 0, 255, 0));
+  transform: translateX(50%) rotateZ(45deg);
+  border-radius: 100%;
+  animation: shining 3s ease-in-out infinite;
+}
+
+.shooting-star::after {
+  content: '';
+  position: absolute;
+  top: calc(50% - 1px);
+  right: 0;
+  height: 2px;
+  background: linear-gradient(-45deg, rgba(0, 0, 255, 0), rgba(200, 160, 255, 1), rgba(0, 0, 255, 0));
+  transform: translateX(50%) rotateZ(-45deg);
+  border-radius: 100%;
+  animation: shining 3s ease-in-out infinite;
+}
+
+@keyframes tail {
+  0% {
+    width: 0;
+  }
+
+  30% {
+    width: 100px;
+  }
+
+  100% {
+    width: 0;
+  }
+}
+
+@keyframes shining {
+  0% {
+    width: 0;
+  }
+
+  50% {
+    width: 30px;
+  }
+
+  100% {
+    width: 0;
+  }
+}
+
+@keyframes shooting {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(300px);
+  }
+}
+
+.shooting-star:nth-child(1) {
+  top: 20%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.shooting-star:nth-child(1)::before,
+.shooting-star:nth-child(1)::after {
+  animation-delay: 0s;
+}
+
+.shooting-star:nth-child(2) {
+  top: 40%;
+  left: 80%;
+  animation-delay: 1.2s;
+}
+
+.shooting-star:nth-child(2)::before,
+.shooting-star:nth-child(2)::after {
+  animation-delay: 1.2s;
+}
+
+.shooting-star:nth-child(3) {
+  top: 0%;
+  left: 30%;
+  animation-delay: 2.1s;
+}
+
+.shooting-star:nth-child(3)::before,
+.shooting-star:nth-child(3)::after {
+  animation-delay: 2.1s;
+}
+
+.shooting-star:nth-child(4) {
+  top: 70%;
+  left: 20%;
+  animation-delay: 3.5s;
+}
+
+.shooting-star:nth-child(4)::before,
+.shooting-star:nth-child(4)::after {
+  animation-delay: 3.5s;
+}
+
+.shooting-star:nth-child(5) {
+  top: 60%;
+  left: 70%;
+  animation-delay: 4.8s;
+}
+
+.shooting-star:nth-child(5)::before,
+.shooting-star:nth-child(5)::after {
+  animation-delay: 4.8s;
+}
+
+[data-aos="fade-up"].aos-animate {
+  transform: translateY(0);
+}
+
+/* Smooth hover lift */
+.hover-lift {
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.45s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+}
+
+/* Progress bar animation */
+@keyframes growBar {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: var(--target-width);
+  }
+}
+
+/* Shimmer effect */
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.06) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2.8s ease-in-out infinite;
+}
+
+/* Ping pulse for status dots */
+@keyframes ping-slow {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+
+  70% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+.animate-ping-slow {
+  animation: ping-slow 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+:root,
+.light {
+  --color-background: 253 251 255;
+  --color-surface: 253 251 255;
+  --color-surface-dim: 222 216 225;
+  --color-surface-bright: 253 251 255;
+  --color-surface-container-lowest: 255 255 255;
+  --color-surface-container-low: 247 242 250;
+  --color-surface-container: 243 237 247;
+  --color-surface-container-high: 236 230 240;
+  --color-surface-container-highest: 230 224 233;
+  --color-on-surface: 26 27 31;
+  --color-on-background: 26 27 31;
+  --color-on-surface-variant: 68 71 79;
+  --color-surface-variant: 225 226 236;
+  --color-inverse-surface: 47 48 51;
+  --color-inverse-on-surface: 241 240 244;
+  --color-primary: 0 90 193;
+  --color-on-primary: 255 255 255;
+  --color-primary-container: 216 226 255;
+  --color-on-primary-container: 0 26 65;
+  --color-primary-fixed: 216 226 255;
+  --color-primary-fixed-dim: 186 198 234;
+  --color-on-primary-fixed: 0 26 65;
+  --color-on-primary-fixed-variant: 0 66 151;
+  --color-secondary: 83 94 120;
+  --color-on-secondary: 255 255 255;
+  --color-secondary-container: 216 226 255;
+  --color-on-secondary-container: 15 27 50;
+  --color-secondary-fixed: 216 226 255;
+  --color-secondary-fixed-dim: 187 198 234;
+  --color-on-secondary-fixed: 15 27 50;
+  --color-on-secondary-fixed-variant: 59 70 95;
+  --color-tertiary: 0 106 96;
+  --color-on-tertiary: 255 255 255;
+  --color-tertiary-container: 116 248 229;
+  --color-on-tertiary-container: 0 32 28;
+  --color-tertiary-fixed: 116 248 229;
+  --color-tertiary-fixed-dim: 83 219 200;
+  --color-on-tertiary-fixed: 0 32 28;
+  --color-on-tertiary-fixed-variant: 0 80 72;
+  --color-error: 186 26 26;
+  --color-on-error: 255 255 255;
+  --color-error-container: 255 218 214;
+  --color-on-error-container: 65 0 2;
+  --color-outline: 116 119 127;
+  --color-outline-variant: 196 198 208;
+  --color-inverse-primary: 173 198 255;
+  --color-surface-tint: 0 90 193;
+}
+
+.dark {
+  --color-background: 5 20 36;
+  --color-error: 255 180 171;
+  --color-surface: 5 20 36;
+  --color-surface-tint: 190 198 224;
+  --color-outline: 144 144 151;
+  --color-on-secondary-container: 230 236 255;
+  --color-on-tertiary-fixed: 0 32 28;
+  --color-inverse-on-surface: 35 49 67;
+  --color-surface-container-highest: 39 54 71;
+  --color-secondary-fixed: 216 226 255;
+  --color-on-tertiary: 0 55 49;
+  --color-on-primary-container: 121 128 152;
+  --color-primary-container: 15 23 42;
+  --color-on-error-container: 255 218 214;
+  --color-primary-fixed: 218 226 253;
+  --color-error-container: 147 0 10;
+  --color-inverse-primary: 86 94 116;
+  --color-tertiary-fixed-dim: 79 219 200;
+  --color-surface-variant: 39 54 71;
+  --color-on-surface: 212 228 250;
+  --color-outline-variant: 69 70 77;
+  --color-on-background: 212 228 250;
+  --color-on-secondary-fixed: 0 26 66;
+  --color-primary: 190 198 224;
+  --color-on-tertiary-fixed-variant: 0 80 72;
+  --color-tertiary-fixed: 113 248 228;
+  --color-secondary: 173 198 255;
+  --color-secondary-fixed-dim: 173 198 255;
+  --color-surface-bright: 44 58 76;
+  --color-on-tertiary-container: 0 145 130;
+  --color-surface-container: 18 33 49;
+  --color-on-primary: 40 48 68;
+  --color-on-error: 105 0 5;
+  --color-secondary-container: 5 102 217;
+  --color-tertiary-container: 0 28 24;
+  --color-surface-container-high: 28 43 60;
+  --color-on-secondary-fixed-variant: 0 67 149;
+  --color-inverse-surface: 212 228 250;
+  --color-on-surface-variant: 198 198 205;
+  --color-surface-container-lowest: 1 15 31;
+  --color-on-primary-fixed: 19 27 46;
+  --color-surface-container-low: 13 28 45;
+  --color-primary-fixed-dim: 190 198 224;
+  --color-surface-dim: 5 20 36;
+  --color-tertiary: 79 219 200;
+  --color-on-primary-fixed-variant: 63 70 92;
+  --color-on-secondary: 0 46 106;
+}
